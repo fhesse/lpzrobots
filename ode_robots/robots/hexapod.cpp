@@ -250,7 +250,7 @@ namespace lpzrobots {
 
   double Hexapod::round(double num, int x){
 
-    return  ceil( ( num * pow( 10,x ) ) - 0.49 ) / pow( 10,x );
+    return  ceil( ( num * pow( 10.0,x ) ) - 0.49 ) / pow( 10.0,x );
 
   }
   /** this function is called in each timestep. It should perform robot-internal checks, 
