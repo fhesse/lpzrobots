@@ -53,10 +53,16 @@ while test $# -gt 0; do
   shift
 done
 
+#use Mac OS X + command-line compiler option if on a mac
+SPEC=
+if [ `uname -s` = "Darwin" ]; then 
+    SPEC="-spec macx-g++"
+fi
+
 if m4 -DPREFIX="$prefix" -D$system -DVERSION=$version $DIRNAME/$package-config.m4 > $DIRNAME/$package-config; then
    chmod u+x $DIRNAME/$package-config;
    echo "configuration done!"
 fi
 
-cd $DIRNAME/ && qmake $QMAKEOPT configurator.pro
+cd $DIRNAME/ && qmake $QMAKEOPT $SPEC configurator.pro
 

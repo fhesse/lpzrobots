@@ -2,7 +2,7 @@
 
 SPEC=
 if [ `uname -s` = "Darwin" ]; then 
-    SPEC=-spec macx-g++
+    SPEC="-spec macx-g++"
 fi
 
 qmake -makefile $SPEC matrixviz.pro
