@@ -85,7 +85,7 @@ ${BUILD_DIR}/%.o: %.cpp
 	$(CXX) -c $(CPPFLAGS) $(CFLAGS) -o "$@" "$<"
 
 $(SHAREDLIB): Makefile.depend $(OFILES)
-	$(CXX) -shared -Wl,$(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
+	$(CXX) -shared -Wl,-lgsl,$(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
 
 
 install_scripts:
