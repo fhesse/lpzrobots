@@ -55,6 +55,18 @@ CXX = g++
 # used for lib-packing 
 AR = ar -rcs
 
+# sucky sucky OSes
+OS=$(shell uname -s)
+ifeq ($(OS), Linux)
+    SOFLAG = -soname
+    STRFLAG= --strip-debug
+endif
+ifeq ($(OS), Darwin)
+    SOFLAG += -dylib_install_name
+    STRFLAG= -S
+endif
+        
+        
 .PHONY: lib opt clean clean-all distclean todo depend tags search find findi install install_scripts install_lib uninstall uninstall_lib
 
 libs: lib opt dbg
@@ -91,10 +103,10 @@ library: $(LIB)
 
 $(LIB): $(UTILS) Makefile.depend $(OFILES)	
 	$(AR) $(LIB) $(OFILES)
-	@if [ "$(STRIP)" = "yes" ]; then strip --strip-debug $(LIB); fi
+	@if [ "$(STRIP)" = "yes" ]; then strip $(STRFLAG) $(LIB); fi
 
 $(SHAREDLIB): Makefile.depend $(OFILES)
-	$(CXX) -shared -Wl,-soname,`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
+	$(CXX) -shared -Wl,$(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
 
 ${BUILD_DIR}/%.o: %.cpp
 	@mkdir -p $(dir $@)

@@ -51,9 +51,11 @@ AR = ar -rcs
 OS=$(shell uname -s)
 ifeq ($(OS), Linux)
     SOFLAG = -soname
+    STRFLAG= --strip-debug
 endif
 ifeq ($(OS), Darwin)
-    SOFLAG += -dylib_install_name
+    SOFLAG = -dylib_install_name
+    STRFLAG= -S
 endif
 
 
@@ -77,7 +79,7 @@ shared:
 
 $(LIB): Makefile.depend $(OFILES)
 	$(AR) $(LIB) $(OFILES)
-	@if [ "$(STRIP)" = "yes" ]; then strip -S $(LIB); fi
+	@if [ "$(STRIP)" = "yes" ]; then strip  $(STRFLAG) $(LIB); fi
 
 
 ${BUILD_DIR}/%.o: %.cpp
