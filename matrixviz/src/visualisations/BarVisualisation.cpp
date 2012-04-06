@@ -27,6 +27,8 @@
 #include <iostream>
 #include <string>
 
+#include "glu.h"  // required for qt4.8  (maybe linking against -lGLU required, but seems not necessary at the moment)
+
 using namespace std;
 
 BarVisualisation::BarVisualisation(MatrixPlotChannel *channel, ColorPalette *colorPalette, QWidget *parent)
