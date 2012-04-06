@@ -8,6 +8,7 @@ LIBS += -lselforg -L../selforg
 QMAKE_CXXFLAGS += -Wno-deprecated -Wno-unused-parameter
 
 CONFIG -= lib_bundle
+CONFIG -= app_bundle
 
 OBJECTS_DIR = obj
 MOC_DIR = moc
