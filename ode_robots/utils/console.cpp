@@ -38,6 +38,12 @@
 #include "odeagent.h"
 #include "abstractground.h"
 
+//definition from readline/chardefs.h which is not available on mac
+#ifndef whitespace
+#define whitespace(c) (((c) == ' ') || ((c) == '\t'))
+#endif
+
+
 using namespace std;
 
 namespace lpzrobots {
