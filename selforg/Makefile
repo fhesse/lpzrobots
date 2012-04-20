@@ -47,15 +47,17 @@ CXX = g++
 # used for lib-packing 
 AR = ar -rcs
 
-# sucky sucky OSes
+# OS specific stuff
 OS=$(shell uname -s)
 ifeq ($(OS), Linux)
     SOFLAG = -soname
     STRFLAG= --strip-debug
+    SHAREDFLAGS = -shared -Wl,-lgsl, -m64, 
 endif
 ifeq ($(OS), Darwin)
     SOFLAG = -dylib_install_name
     STRFLAG= -S
+    SHAREDFLAGS = -shared -Wl -lgsl -m64 
 endif
 
 
@@ -87,7 +89,7 @@ ${BUILD_DIR}/%.o: %.cpp
 	$(CXX) -c $(CPPFLAGS) $(CFLAGS) -o "$@" "$<"
 
 $(SHAREDLIB): Makefile.depend $(OFILES)
-	$(CXX) -shared -Wl,-lgsl,$(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
+	$(CXX) $(SHAREDFLAGS) $(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
 
 
 install_scripts:
