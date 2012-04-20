@@ -9,7 +9,14 @@ deftype=${2:-DEVEL}
 echo  "Where do you want to install the simulator?";
 echo  "Please use either /usr, /usr/local  or you home directory"
 echo  "unless you know what you are doing. (no tailing slash)";
-echo -n "e.g. (/home/yourlogin) (don' use ~): [$defprefix] ";
+# MAC 
+if [ `uname -s` = "Darwin" ]; then 
+  echo -n "e.g. (/Users/yourlogin) (don' use ~): [$defprefix] ";
+fi
+# Linux
+if [ `uname -s` = "Linux" ]; then 
+  echo -n "e.g. (/home/yourlogin) (don' use ~): [$defprefix] ";
+fi
 read prefix 
 [ -z "$prefix" ] && prefix=$defprefix  # $(HOME)'
 echo  "Checking PATH variable: "
