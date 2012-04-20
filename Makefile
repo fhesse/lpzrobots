@@ -10,6 +10,16 @@ USAGE   = "Try 'make help' for more..."
 USAGE2  = "lpzrobots Makefile Targets:"
 USAGE3  = "Usually you do: \nmake all\n see the above description for a step by step process\n"
 
+#correct parameter options for install command on mac and linux
+OS=$(shell uname -s)
+ifeq ($(OS), Linux)
+	MODE = "--mode" 
+endif
+ifeq ($(OS), Darwin)
+	MODE = "-m"
+endif
+
+
 ##!help		show this help text (default)
 help: 
 	@cat logo.txt
@@ -71,12 +81,15 @@ install_utils:
 	 fi
 	-cd javacontroller/src && $(MAKE) PREFIX=$(PREFIX)/ install	
 	-@if [ -d guilogger/bin/guilogger.app ]; then \
-          cp guilogger/bin/guilogger.app/Contents/MacOS/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
+           cp guilogger/bin/guilogger.app/Contents/MacOS/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
+         elif [ -d guilogger/src/bin/guilogger.app ]; then \
+	       cp guilogger/src/bin/guilogger.app/Contents/MacOS/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
          elif [ -e guilogger/src/bin/guilogger ]; then \
-	   cp guilogger/src/bin/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
-	 else cp guilogger/bin/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
+	       cp guilogger/src/bin/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
+	     else cp guilogger/bin/guilogger $(PREFIX)/bin/ && echo "===> copied guilogger to $(PREFIX)/bin/"; \
 	fi	
-	-@if [ -e configurator/libconfigurator.a -o -e configurator/libconfigurator.so ]; then install --mode 644 configurator/libconfigurator.* $(PREFIX)/lib/ && install --mode 755 configurator/configurator-config $(PREFIX)/bin/ && echo "===> copied libconfigurator to $(PREFIX)/lib/"; fi
+	
+	-@if [ -e configurator/libconfigurator.a -o -e configurator/libconfigurator.so ]; then install $(MODE) 644 configurator/libconfigurator.* $(PREFIX)/lib/ && install $(MODE) 755 configurator/configurator-config $(PREFIX)/bin/ && echo "===> copied libconfigurator to $(PREFIX)/lib/"; fi
 	-@cp -r configurator/include/configurator $(PREFIX)/include/ && echo "===> copied configurator bins, includes and libs $(PREFIX)"
 	-cp soundman/class/*.class $(PREFIX)/lib/soundMan/
 	-cp soundman/bin/soundMan $(PREFIX)/bin/soundMan
@@ -213,7 +226,9 @@ soundman:
 
 
 .PHONY: confsubmodule
-confsubmodule:	
+confsubmodule:
+##! line below gives the following error on MAC: /bin/bash: line 0: [: =: unary operator expected
+##! but now problem here, since "MAC" is passed over: call: selforg/configure --prefix=/Users/frank --system=MAC --type=DEVEL
 	@if [ `uname -a | sed 's/\(\w*\).*/\1/'` = "Linux" ]; then \
 		System="LINUX"; else System="MAC"; fi; \
 	if [ -n "$(MODULE)" ]; then \
