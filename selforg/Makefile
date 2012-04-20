@@ -52,12 +52,12 @@ OS=$(shell uname -s)
 ifeq ($(OS), Linux)
     SOFLAG = -soname
     STRFLAG= --strip-debug
-    SHAREDFLAGS = -shared -Wl,-lgsl, -m64, 
+    SHAREDFLAGS = -shared -Wl,-lgsl
 endif
 ifeq ($(OS), Darwin)
     SOFLAG = -dylib_install_name
     STRFLAG= -S
-    SHAREDFLAGS = -shared -Wl -lgsl -m64 
+    SHAREDFLAGS = -shared -Wl -lgsl
 endif
 
 
