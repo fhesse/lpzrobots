@@ -226,8 +226,15 @@ soundman:
 
 
 .PHONY: confsubmodule
+<<<<<<< HEAD
 confsubmodule:	
 	@if [ `uname` = "Linux" ]; then \
+=======
+confsubmodule:
+##! line below gives the following error on MAC: /bin/bash: line 0: [: =: unary operator expected
+##! but now problem here, since "MAC" is passed over: call: selforg/configure --prefix=/Users/frank --system=MAC --type=DEVEL
+	@if [ `uname -a | sed 's/\(\w*\).*/\1/'` = "Linux" ]; then \
+>>>>>>> cbd5cd4596e3883b38afe07327dcd5c4d28ecea7
 		System="LINUX"; else System="MAC"; fi; \
 	if [ -n "$(MODULE)" ]; then \
 	    CMD="$(MODULE)/configure --prefix=$(PREFIX) --system=$$System --type=$(TYPE)"; \
