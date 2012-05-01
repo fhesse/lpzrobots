@@ -93,10 +93,11 @@ endif
 	$(MAKE) BUILD_DIR=build_opt CFGOPTS=--opt STRIP="yes" library
 
 shared:
-ifeq ($(TYPE),DEVEL)
-	cd $(SELFORG) && $(MAKE) shared
-endif
-	$(MAKE) $(SHAREDLIB)
+# commented out due to problems with lconfigurator stuff
+#ifeq ($(TYPE),DEVEL)
+#	cd $(SELFORG) && $(MAKE) shared
+#endif
+#	$(MAKE) $(SHAREDLIB)
 
 library: $(LIB)
 

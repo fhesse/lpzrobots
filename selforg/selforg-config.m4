@@ -84,8 +84,8 @@ while test $# -gt 0; do
       ;;
     --static) ##force use static linking of lib
       STATIC=--static
-      STATICSTART=-Wl,-Bstatic
-      STATICEND=-Wl,-Bdynamic
+      STATICSTART=-Wl,LINUXORMAC(-Bstatic,-static)
+      STATICEND=-Wl,LINUXORMAC(-Bdynamic,-dynamic)
     ;;
     --opt) ##Optimisation
       LIBBASE=${LIBBASE}_opt

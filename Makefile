@@ -13,10 +13,12 @@ USAGE3  = "Usually you do: \nmake all\n see the above description for a step by 
 #correct parameter options for install command on mac and linux
 OS=$(shell uname -s)
 ifeq ($(OS), Linux)
-	MODE = "--mode" 
+	MODE = "--mode"
+	SYSTEMM=LINUX 
 endif
 ifeq ($(OS), Darwin)
 	MODE = "-m"
+	SYSTEMM=MAC
 endif
 
 
@@ -208,10 +210,10 @@ matrixviz:
 
 .PHONY: configurator
 ##!configurator	  compile configurator
-configurator:
-	configurator/configure --prefix=$(PREFIX) --system=$$System --type=$(TYPE) --static
+configurator:	
+	configurator/configure --prefix=$(PREFIX) --system=$(SYSTEMM) --type=$(TYPE) --static
 	$(MAKE) -C configurator
-	configurator/configure --prefix=$(PREFIX) --system=$$System --type=$(TYPE)
+	configurator/configure --prefix=$(PREFIX) --system=$(SYSTEMM) --type=$(TYPE)
 	$(MAKE) -C configurator
 
 .PHONY: javactrl

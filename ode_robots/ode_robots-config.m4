@@ -47,7 +47,7 @@ fi
 CBASEFLAGS="-pthread -I/usr/X11R6/include $ODEFLAGS LINUXORMAC( ,-I/opt/local/include)" 
 CPPFLAGS="$CBASEFLAGS"
 INTERNFLAGS="-g -O"
-LIBS="-lm -losgShadow -losgText -losgUtil -losgViewer -losgGA -losgDB -lOpenThreads -losg -lGL -lGLU -lglut -lpthread"
+LINUXORMAC(LIBS="-lm -losgShadow -losgText -losgUtil -losgViewer -losgGA -losgDB -lOpenThreads -losg -lGL -lGLU -lglut -lpthread",LIBS="-lm -losgShadow -losgText -losgUtil -losgViewer -losgGA -losgDB -lOpenThreads -losg -framework OpenGL -framework GLUT -lpthread")
 
 
 usage="\
@@ -88,8 +88,8 @@ while test $# -gt 0; do
       intern=1
       ;;
     --static) ##force use static linking of lib
-      STATICSTART=-Wl,-Bstatic
-      STATICEND=-Wl,-Bdynamic
+      STATICSTART=-Wl,LINUXORMAC(-Bstatic,-static)
+      STATICEND=-Wl,LINUXORMAC(-Bdynamic,-dynamic)
     ;;
     --opt) ##Optimisation
       LIBBASE=${LIBBASE}_opt

@@ -64,7 +64,8 @@ endif
 .PHONY: lib opt dbg clean clean-all distclean todo depend tags install install_lib uninstall uninstall_lib
 
 libs: lib opt dbg
-	$(MAKE) shared
+# commented out due to problems with lconfigurator stuff
+#	$(MAKE) shared
 # the shared lib cannot be done as a dependency because with -j 2 it collides with the lib target
     
 lib: $(LIB)
