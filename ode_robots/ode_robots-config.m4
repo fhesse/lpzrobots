@@ -112,7 +112,7 @@ while test $# -gt 0; do
       echo "$srcprefix/lib${LIBBASE}.a"
       ;;
     --solibfile)
-      echo "$srcprefix/lib${LIBBASE}.so"
+      echo LINUXORMAC("$srcprefix/lib${LIBBASE}.so","$srcprefix/lib${LIBBASE}.dylib")      
       ;;
     *)
       echo "Syntax Error: $0 $@" 1>&2

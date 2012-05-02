@@ -60,10 +60,12 @@ OS=$(shell uname -s)
 ifeq ($(OS), Linux)
     SOFLAG = -soname
     STRFLAG= --strip-debug
+    SHAREDFLAGS =
 endif
 ifeq ($(OS), Darwin)
     SOFLAG += -dylib_install_name
     STRFLAG= -S
+    SHAREDFLAGS = $(shell selforg-config --libs)  $(shell ./ode_robots-config --libs)
 endif
         
         
@@ -94,10 +96,10 @@ endif
 
 shared:
 # commented out due to problems with lconfigurator stuff
-#ifeq ($(TYPE),DEVEL)
-#	cd $(SELFORG) && $(MAKE) shared
-#endif
-#	$(MAKE) $(SHAREDLIB)
+ifeq ($(TYPE),DEVEL)
+	cd $(SELFORG) && $(MAKE) shared
+endif
+	$(MAKE) $(SHAREDLIB)
 
 library: $(LIB)
 
@@ -107,7 +109,7 @@ $(LIB): $(UTILS) Makefile.depend $(OFILES)
 	@if [ "$(STRIP)" = "yes" ]; then strip $(STRFLAG) $(LIB); fi
 
 $(SHAREDLIB): Makefile.depend $(OFILES)
-	$(CXX) -shared -Wl,$(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
+	$(CXX) $(SHAREDFLAGS) -shared -Wl $(SOFLAG),`basename $(SHAREDLIB)` -o $(SHAREDLIB) $(OFILES) 
 
 ${BUILD_DIR}/%.o: %.cpp
 	@mkdir -p $(dir $@)
