@@ -57,15 +57,14 @@ endif
 ifeq ($(OS), Darwin)
     SOFLAG = -dylib_install_name
     STRFLAG= -S
-    SHAREDFLAGS = -shared -Wl -lgsl
+    SHAREDFLAGS = -shared -Wl -lgsl  $(shell ./selforg-config --libs)
 endif
 
 
 .PHONY: lib opt dbg clean clean-all distclean todo depend tags install install_lib uninstall uninstall_lib
 
 libs: lib opt dbg
-# commented out due to problems with lconfigurator stuff
-#	$(MAKE) shared
+	$(MAKE) shared
 # the shared lib cannot be done as a dependency because with -j 2 it collides with the lib target
     
 lib: $(LIB)
