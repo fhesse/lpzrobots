@@ -34,7 +34,7 @@ LIBBASE=configurator
 CBASEFLAGS="" 
 CPPFLAGS="$CBASEFLAGS"
 QPREFIX=`qmake -query QT_INSTALL_LIBS`
-LIBS="-L$QPREFIX LINUXORMAC(-lQtCore, -framework QtCore) LINUXORMAC(-lQtGui, -framework QtGui) LINUXORMAC( -lQtXml, -framework QtXml) "
+LIBS=LINUXORMAC("-L$QPREFIX -lQtCore -lQtGui -lQtXml","-F$QPREFIX  -framework QtCore  -framework QtGui  -framework QtXml ") 
 STATICSTART=
 STATICEND=
 

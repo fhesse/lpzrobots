@@ -39,8 +39,10 @@ while test $# -gt 0; do
       prefix=$optarg
       ;;
     --type=*)
+      type=$optarg
       ;;
     --system=*)
+      system=$optarg
       ;;
     --static)
       QMAKEOPT="CONFIG+=staticlib"
