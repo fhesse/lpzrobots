@@ -1,9 +1,0 @@
-Makefile.depend
-start
-*.log
-*.xml
-start_opt
-Makefile
-.history
-saved_animation.path
-ode.msg
