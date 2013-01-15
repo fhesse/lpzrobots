@@ -9,7 +9,10 @@
 /**
  * Empty robot controller.
  * The controller gets a number of input sensor values each timestep
- *  and has to generate a number of output motor values.
+ * and has to generate a number of output motor values.
+ *
+ * Go to the step() function and enter the control commands with respect to your task!
+ *
  */
 class EmptyController : public AbstractController {
 public:
@@ -18,7 +21,7 @@ public:
     EmptyController(const std::string& name, const std::string& revision)
     : AbstractController(name, revision){}
 
-  /** initialisation of the controller with the given sensor/ motornumber
+  /** initialization of the controller with the given sensor/ motornumber
       Must be called before use. The random generator is optional.
   */
   virtual void init(int sensornumber, int motornumber, RandGen* randGen = 0){
@@ -50,24 +53,18 @@ public:
     assert(number_sensors == sensornumber);
     assert(number_motors == motornumber);
 
-    // turn right in place
+/*****************************************************************************************/
+// sensors 0-3: wheel velocitiy of the corresponding wheel
+// sensors 4-11: IR Sensors
+    // front left and front right infrared sensor
+    // right infrared sensors
+    // rear right and rear left infrared sensor
+    // left infrared sensors
+// sensors 12-23: wheel velocitiy of the corresponding wheel
+    // distance two objects in local coordinates (x,y,z)
+/*****************************************************************************************/
 
-    if (sensors[14] > 0.1){// sensor numbers for red ball (local coordinates!) 14 -> z; 12 -> x; 13 -> y
-      motors[0]=  sensors[13]+0.5;
-      motors[2]=  sensors[13]+0.5;
-    } else{
-      motors[0]=  0.5;
-      motors[2]=  0.5;
-    }
-
-    if (sensors[14] < -0.1){
-      motors[1]=  sensors[13]+0.5;
-      motors[3]=  sensors[13]+0.5;
-    } else{
-      motors[1]=  0.5;
-      motors[3]=  0.5;
-    }
-
+// Example open loop controller:
 
 //    // turn right in place
 //    motors[0]=  1;
@@ -81,10 +78,10 @@ public:
 //    motors[2]= -1;
 //    motors[3]=  1;
 
-//    //drive straight forward
-//    for (int i = 0; i < number_motors; i++){
-//      motors[i]=1.0;
-//    }
+    //drive straight forward
+    for (int i = 0; i < number_motors; i++){
+      motors[i]=1.0;
+    }
 
 
 
