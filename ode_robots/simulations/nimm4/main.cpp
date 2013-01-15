@@ -36,55 +36,13 @@
 
 
 // used controller
-//#include <selforg/invertnchannelcontroller.h>
-//#include <selforg/invertmotorspace.h>
-//#include <selforg/sinecontroller.h>
-//#include "randomcontroller.h"
-//#include "openinvertnchannelcontroller.h"
-//#include "qlearninghomeokmcontroller.h"
-//#include "qlearningmcontroller.h"
-
-//#include "acicocontroller.h" // Two separate angle inputs
-//#include "acicocontrollerv2.h" // One angle input BEST
-//#include "acicocontrollerv3.h" // One angle input and one angle_dot input BAD
-//#include "acicocontrollerv4.h" // One angle input and one distance sensor
-//#include "acicocontrollerv5.h" // One angle input and one distance sensor 4 synapses
-//#include "acicocontrollerv6.h" // One angle input and one distance sensor 4 synapses Stable version Correct TD error!
-//#include "acicocontrollerv7.h" // One angle input and one distance and one IR sensor 6 synapses
-//#include "acicocontrollerv8.h" // One angle input and one distance and one IR sensor 6 synapses
-//#include "acicocontrollerv9.h" // **WORK_ AC with obstacles_FixedIRweights: One angle input and one distance and one IR sensor 6 synapses separated linear controllers
-//#include "acicocontrollerv10.h" // Pure AC with Obstacles Change all weights: One angle input and one distance and one IR sensor 6 synapses separated linear controllers
-//#include "acicocontrollerv11.h" // ICO + AC with Obstacles Change all weights: One angle input and one distance and one IR sensor 6 synapses separated linear controllers
-//#include "acicocontrollerv12.h" // ICO goal directed steering angle
-//#include "acicocontrollerv13.h" // ICO + AC 2 goals MAX 4 goals no obstacle
-//#include <../../../controller/Nimm4/acicocontrollerv14.h> // ICO + AC 3 goals no obstacle
 #include <emptycontroller.h>
 
 
 // fetch all the stuff of lpzrobots into scope
 using namespace lpzrobots;
 
-//OpenInvertNChannelController * ocontroller;
 
-//select
-//QLearningHomeokMController* qcontroller;
-//QLearningMController* qcontroller;
-
-//****Setup of ACcontrol*****//
-//ACICOController* qcontroller;
-//ACICOControllerV2* qcontroller; //The best one for goal oriented navigation, one input = theta
-//ACICOControllerV3* qcontroller;
-//ACICOControllerV4* qcontroller;
-//ACICOControllerV5* qcontroller;
-//ACICOControllerV6* qcontroller;
-//ACICOControllerV7* qcontroller;
-//ACICOControllerV8* qcontroller; // Stable version All sensors without obstacles
-//ACICOControllerV9* qcontroller; // Stable version All sensors with obstacles and Fixed IR weights
-//ACICOControllerV10* qcontroller;
-//ACICOControllerV11* qcontroller;
-//ACICOControllerV12* qcontroller;
-//ACICOControllerV13* qcontroller;
-//ACICOControllerV14* qcontroller;
 EmptyController* qcontroller;
 
 bool obstacle_on = false;
@@ -315,20 +273,6 @@ public:
 		}
 
 
-		// use Nimm2 vehicle as robot:
-		// - get default configuration for nimm2
-		// - activate bumpers, cigar mode and infrared front sensors of the nimm2 robot
-		// - create pointer to nimm2 (with odeHandle, osg Handle and configuration)
-		// - place robot
-		//     Nimm2Conf c = Nimm2::getDefaultConf();
-		//     c.force   = 4;
-		//     c.bumper  = true;
-		//     c.cigarMode  = true;
-		//     // c.irFront = true;
-		//     OdeRobot* vehicle = new Nimm2(odeHandle, osgHandle, c, "Nimm2");
-		//     vehicle->place(Pos(0,0,0));
-
-
 		////////////////////////////////////Call this set up and Control//////////////////////////////////////////////
 		bool ac_ico_robot = true;
 		if (ac_ico_robot)
@@ -348,18 +292,9 @@ public:
 
 			OdeRobot* vehicle3 = new FourWheeledRPos(odeHandle, osgHandle, fconf);
 
-			//deprecated: ((Nimm4*)vehicle3)->setBodyColor(Color(0.0,1.0,0.0));
-			//deprecated: ((Nimm4*)vehicle3)->setBodyTexture("../../../../osg/data/Images/wood.rgb");
-			//deprecated: ((Nimm4*)vehicle3)->setWheelTexture("../../../../osg/data/Images/chess.rgb");
-
-			//((Nimm4*)vehicle3)->setRelPosSensorReference(global.obstacles.back()->getMainPrimitive());
 
 
 			/****Initial position of Nimm4******/
-			//Generate random position between x = +-10, y = +-10
-			//Position x = +-10
-			//Position y = +-10
-			//vehicle3->place(Pos(0/*x*/,0/*y*/,0/*z*/));
 
 			if(random_positon_frist)
 			{
@@ -383,15 +318,6 @@ public:
 			}
 			else
 			{
-				//Pos pos(position_x-5.0/*5.5x, +x = to left, -x = to right*/,0.0/*y*/,0.0/*z*/);
-
-				//setting position and orientation
-				//vehicle3->place(osg::Matrix::rotate(0.0, 0, 0, 1) *osg::Matrix::translate(pos));
-
-				//setting only position
-				//vehicle3->place(Pos(position_x-5.0/*5.5x, +x = to left, -x = to right*/,0.0/*y*/,0.0/*z*/));
-
-
 
 				/*******Generating Random Position****/
 				//srand (time(NULL));
@@ -413,37 +339,8 @@ public:
 			}
 
 
-			//AC Lernen
-			//qcontroller = new ACICOController(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV2(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV3(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV4(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV5(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV6(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV7(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV8(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV9(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV10(); ///////////////////// call this function NEW controller!!
-
-			//WORK AC-ICO
-			//qcontroller = new ACICOControllerV11(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV12(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV13(); ///////////////////// call this function NEW controller!!
-			//qcontroller = new ACICOControllerV14(); ///////////////////// call this function NEW controller!!
 			qcontroller = new EmptyController("1","1");
 
-			//((ACICOControllerV12*)qcontroller)->setCurrentCycle(currentCycle);
-			//((ACICOControllerV13*)qcontroller)->setCurrentCycle(currentCycle);
-//			((ACICOControllerV14*)qcontroller)->setCurrentCycle(currentCycle);
-//			qcontroller->position(position_x); //send the position
-
-
-			//Homeo + Q
-			//qcontroller = new QLearningHomeokMController();
-			//Q Lernen
-			//qcontroller = new QLearningMController();
-
-//			qcontroller->setParam("eps", 0.1);
 			global.configs.push_back(qcontroller);
 
 			// create pointer to one2onewiring
@@ -469,69 +366,8 @@ public:
 
 		}
 
-		////////////////////////////////////Another set up and Control//////////////////////////////////////////////
 		bool random_controlled_robot =false;
-//		if (random_controlled_robot){
-//			// robot 1
-//			OdeRobot* vehicle = new Nimm4(odeHandle, osgHandle, "Nimm4");
-//			//Deprecated:
-//			//((Nimm4*)vehicle)->setBodyColor(Color(0.0,0.0,1.0));
-//			//((Nimm4*)vehicle)->setBodyTexture("../../../../osg/data/Images/wood.rgb");
-//			//((Nimm4*)vehicle)->setWheelTexture("../../../../osg/data/Images/chess.rgb");
-//			vehicle->place(Pos(0,1,0));
-//
-//			// create pointer to controller
-//			AbstractController *controller = new RandomController();
-//			global.configs.push_back(controller);
-//
-//			// create pointer to one2onewiring
-//			One2OneWiring* wiring = new One2OneWiring(new ColorUniformNoise(0.1));
-//
-//			// create pointer to agent
-//			OdeAgent* agent = new OdeAgent(plotoptions);
-//			agent->init(controller, vehicle, wiring);
-//			// show robot´s trace in simulation
-//			TrackRobot* track = new TrackRobot(/*bool trackPos*/false,
-//					/*bool trackSpeed*/false,
-//					/*bool trackOrientation*/false,
-//					/*bool displayTrace*/false//,
-//			/*const char *scene="", int interval=1*/);
-//			agent->setTrackOptions(*track);
-//			global.agents.push_back(agent);
-//		}
 
-		////////////////////////////////////Another set up and Control//////////////////////////////////////////////
-		bool manually_steered_robot = false;
-//		if (manually_steered_robot){
-//			// 2nd robot
-//			OdeRobot* vehicle2 = new Nimm4(odeHandle, osgHandle, "Nimm4",
-//					/*double size=*/1.0, /*double force =3*/1.5, /*double speed=*/15,
-//					/*bool sphereWheels =*/true);
-//
-//      //Deprecated
-//			//((Nimm4*)vehicle2)->setBodyColor(Color(1.0,0.0,0.0));
-//			//((Nimm4*)vehicle2)->setBodyTexture("../../../../osg/data/Images/wood.rgb");
-//			//((Nimm4*)vehicle2)->setWheelTexture("../../../../osg/data/Images/chess.rgb");
-//			vehicle2->place(Pos(1,1,0));
-//			OpenInvertNChannelController ocontroller = new OpenInvertNChannelController(10);
-//			ocontroller->setParam("eps", 0.1);
-//			ocontroller->setBiasUpdateRule(no); //bias is always zero
-//			global.configs.push_back(ocontroller);
-//
-//			// create pointer to one2onewiring
-//			AbstractWiring*  wiring2 = new One2OneWiring(new ColorUniformNoise(0.1));
-//
-//			// create pointer to agent
-//			OdeAgent* agent2 = new OdeAgent(plotoptions);
-//			TrackRobot* track2 = new TrackRobot(/*bool trackPos*/false,
-//					/*bool trackSpeed*/false,
-//					/*bool trackOrientation*/false,
-//					/*bool displayTrace*/true //,
-//			/*const char *scene="", int interval=1*/);
-//			agent2->setTrackOptions(*track2);
-//			agent2->init(ocontroller, vehicle2, wiring2);
-//			global.agents.push_back(agent2);
-//		}
 
 		showParams(global.configs);
 	}
@@ -563,66 +399,8 @@ public:
 				}
 				fixator.clear();
 				break;
-//			case 'l': // turn left
-//				std::cout <<"turn left"<< std::endl;
-//				f= ocontroller->getMotorCommandFactor();
-//				f.at(0)-=0.2;
-//				f.at(2)-=0.2;
-//				ocontroller->setMotorCommandFactor(f);
-//				std::cout<<"f= "<<f.at(0)<<"  "<<f.at(1)<<"  "<<f.at(2)<<"  "<<f.at(3)<<"  "<<std::endl;
-//				break;
-//			case 'r': // turn right
-//				f = ocontroller->getMotorCommandFactor();
-//				f.at(1)-=0.2;
-//				f.at(3)-=0.2;
-//				ocontroller->setMotorCommandFactor(f);
-//				std::cout<<"f= "<<f.at(0)<<"  "<<f.at(1)<<"  "<<f.at(2)<<"  "<<f.at(3)<<"  "<<std::endl;
-//				break;
-//			case 'n': // turn right
-//				f = ocontroller->getMotorCommandFactor();
-//				for (int i=0; i<4; i++){
-//					f.at(i)=1;
-//				}
-//				std::cout<<"f= "<<f.at(0)<<"  "<<f.at(1)<<"  "<<f.at(2)<<"  "<<f.at(3)<<"  "<<std::endl;
-//				ocontroller->setMotorCommandFactor(f);
-//				break;
-//			case 's': // activate steering control
-//				//qcontroller->setProgrammedSteeringControl(true);
-//				qcontroller->setLearnedSteeringControl(true);
-//				std::cout<<"steering activated"<<std::endl;
-//				break;
-//			case 'd': // deactivate steering control
-//				//qcontroller->setProgrammedSteeringControl(false);
-//				qcontroller->setLearnedSteeringControl(false);
-//				std::cout<<"steering deactivated"<<std::endl;
-//				break;
 			case 'q': // print Q-table
 //				qcontroller->printQTable();
-				break;
-			case 'e': // toggle exploration (activate/deactivate)
-				if (exploration_active){
-					exploration_active = false;
-					std::cout<<"deactivating exploration"<<std::endl;
-				} else {
-					exploration_active = true;
-					std::cout<<"activating exploration"<<std::endl;
-				}
-//				qcontroller->setExplorationActive(exploration_active);
-				break;
-			case 'u': // move forward
-//				qcontroller->setMC(0.6, 0.6);
-				break;
-			case 'j': // move backward
-//				qcontroller->setMC(-0.6, -0.6);
-				break;
-			case 'b': // turn left
-//				qcontroller->setMC(-0.3, 0.3);
-				break;
-			case 'k': // turn right
-//				qcontroller->setMC(0.3, -0.3);
-				break;
-			case ' ': // stop
-//				qcontroller->setMC(0,0);
 				break;
 			default:
 				return false;
@@ -694,10 +472,6 @@ public:
 
 			AbstractController* controller = agent->getController();
 
-			//((ACICOControllerV12*)controller)->setCurrentCycle(currentCycle);
-			//((ACICOControllerV13*)controller)->setCurrentCycle(currentCycle);
-//			((ACICOControllerV14*)controller)->setCurrentCycle(currentCycle);
-
 			OdeRobot* robot = agent->getRobot();
 			AbstractWiring* wiring = agent->getWiring();
 
@@ -741,19 +515,6 @@ public:
 
 		OdeRobot* vehicle3 = new FourWheeledRPos(odeHandle, osgHandle, fconf, "FourWheeled");
 
-		// Deprecated
-		//((Nimm4*)vehicle3)->setBodyColor(Color(0.0,1.0,0.0));
-		//((Nimm4*)vehicle3)->setBodyTexture("../../../../osg/data/Images/wood.rgb");
-		//((Nimm4*)vehicle3)->setWheelTexture("../../../../osg/data/Images/chess.rgb");
-
-		//((Nimm4*)vehicle3)->setRelPosSensorReference(global.obstacles.back()->getMainPrimitive());
-
-
-		/****Initial position of Nimm4******/
-		//Generate random position between x = +-10, y = +-10
-		//Position x = +-10
-		//Position y = +-10
-		//vehicle3->place(Pos(0/*x*/,0/*y*/,0/*z*/));
 
 		if(random_positon)
 		{
@@ -813,50 +574,6 @@ public:
 
 
 
-		///////////////Recreate Robot End//////////////////////////////////////////////////////////////////////////////////////
-		//OdeAgent* agent6;
-		//AbstractController* temp_controller = agent6->getController();
-
-//		//AC Lernen
-//		if (delete_controller){
-//			//qcontroller = new ACICOController();
-//			//qcontroller = new ACICOControllerV2();
-//			//qcontroller = new ACICOControllerV3();
-//			//qcontroller = new ACICOControllerV4();
-//			//qcontroller = new ACICOControllerV5();
-//			//qcontroller = new ACICOControllerV6();
-//			//qcontroller = new ACICOControllerV7();
-//			//qcontroller = new ACICOControllerV8();
-//			//qcontroller = new ACICOControllerV9();
-//			//qcontroller = new ACICOControllerV10();
-//			//qcontroller = new ACICOControllerV11();
-//			//qcontroller = new ACICOControllerV12();
-//			//qcontroller = new ACICOControllerV13();
-//			qcontroller = new ACICOControllerV14();
-//
-//			qcontroller->setParam("eps", 0.1);//doesn't need to be changed if using previous controller
-//		} else {
-//			//qcontroller = (ACICOController*)temp_controller;
-//			//qcontroller = (ACICOControllerV2*)temp_controller;
-//			//qcontroller = (ACICOControllerV3*)temp_controller;
-//			//qcontroller = (ACICOControllerV4*)temp_controller;
-//			//qcontroller = (ACICOControllerV5*)temp_controller;
-//			//qcontroller = (ACICOControllerV6*)temp_controller;
-//			//qcontroller = (ACICOControllerV7*)temp_controller;
-//			//qcontroller = (ACICOControllerV8*)temp_controller;
-//			//qcontroller = (ACICOControllerV9*)temp_controller;
-//			//qcontroller = (ACICOControllerV10*)temp_controller;
-//			//qcontroller = (ACICOControllerV11*)temp_controller;
-//			//qcontroller = (ACICOControllerV12*)temp_controller;
-//			//qcontroller = (ACICOControllerV13*)temp_controller;
-//			qcontroller = (ACICOControllerV14*)temp_controller;
-//		}
-
-
-		//Homeo + Q
-		//qcontroller = new QLearningHomeokMController();
-		//Q Lernen
-		//qcontroller = new QLearningMController();
 
 		global.configs.push_back(qcontroller);
 
@@ -908,13 +625,7 @@ public:
 			/***********************Reset Function*********************************************/
 
 			if (globalData.sim_step>=(time_factor*60.0*200.000) /*|| qcontroller->distance <5/ *10* /|| qcontroller->failure_flag==1*/)//||qcontroller->Vt< -1000 ||qcontroller->Vt>1000)//(globalData.sim_step>=(time_factor*60.0*200.000) || qcontroller->distance <= 5 )// || qcontroller->distance > 250)// || qcontroller->failure_flag==1 /*parameter from acicocontroller.cpp*/)
-			//if (globalData.sim_step>=(time_factor*60.0*200.000) || qcontroller->distance <5/*10*/|| qcontroller->failure_flag_ico==1)
-			//if (globalData.sim_step>=(time_factor*60.0*200.000) || qcontroller->failure_flag_ico==1 || qcontroller->failure_flag==1)
-			//if (globalData.sim_step>=(time_factor*100*60.0*200.000))
 			{
-//				qcontroller->resetlearing(0);
-
-				//qcontroller->setReset(repeat_number);//(10);
 				simulation_time_reached=true;
 
 			}
@@ -930,7 +641,6 @@ public:
 
 int main (int argc, char **argv)
 {
-	//srand( time( NULL));
 	ThisSim sim;
 
 	return sim.run(argc, argv) ? 0 : 1;

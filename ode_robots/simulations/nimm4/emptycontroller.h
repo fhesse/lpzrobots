@@ -95,12 +95,6 @@ public:
 
   };
 
-//  /** called in motor babbling phase.
-//      the motor values are given (by babbling controller) and
-//      this controller can learn the basic relations from observed sensors/motors
-//   */
-//  virtual void motorBabblingStep(const sensor* , int number_sensors,
-//                                 const motor* , int number_motors) {};
 
   /********* STORABLE INTERFACE ******/
   /// @see Storable
@@ -121,8 +115,6 @@ protected:
   int number_sensors;
   int number_motors;
 
-  //paramval strength;
-  //paramval offset;
 };
 
 #endif
