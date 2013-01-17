@@ -60,8 +60,7 @@ public:
     // right infrared sensors
     // rear right and rear left infrared sensor
     // left infrared sensors
-// sensors 12-23: wheel velocitiy of the corresponding wheel
-    // distance two objects in local coordinates (x,y,z)
+// sensors 12-23: distance two objects in local coordinates (x,y,z)
 /*****************************************************************************************/
 
 // Example open loop controller:
@@ -82,8 +81,6 @@ public:
     for (int i = 0; i < number_motors; i++){
       motors[i]=1.0;
     }
-
-
 
   };
 

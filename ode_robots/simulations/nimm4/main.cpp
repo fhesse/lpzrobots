@@ -74,7 +74,7 @@ double random_positiony;
 int number_spheres = 4; // SET NUMBER of TARGET MAX = 4
 int number_boxes = 1; // SET NUMBER of BOXES obstacles
 
-bool repeat_experiment = true;//true; //if select true then set the follwing parameters
+bool repeat_experiment = false;//true; //if select true then set the follwing parameters
 int repeat_number = 500;// 1000;
 double time_factor = 0.25/2;//0.25/2;
 
@@ -150,6 +150,36 @@ public:
 		// register playground in obstacles list
 		global.obstacles.push_back(playground);
 
+//    Playground* playground =
+//      new Playground(odeHandle, osgHandle.changeColor(Color(0.88f,0.4f,0.26f,0.2f)),osg::Vec3(18, 0.2, 2.0));
+//    playground->setPosition(osg::Vec3(0,0,0)); // playground positionieren und generieren
+//    Substance substance;
+//    substance.toRubber(40);
+//    playground->setGroundSubstance(substance);
+//    global.obstacles.push_back(playground);
+
+//    for(int i=0; i<0; i++)
+//    {
+//      PassiveSphere* s =
+//        new PassiveSphere(odeHandle,
+//                          osgHandle.changeColor(Color(184 / 255.0, 233 / 255.0, 237 / 255.0)), 0.2);
+//      s->setTexture("Images/dusty.rgb");
+//      s->setPosition(Pos(i*0.5-2, i*0.5, 1.0));
+//      global.obstacles.push_back(s);
+//    }
+
+    for (int j=0;j<4;j++)
+    {
+      for(int i=0; i<4; i++)
+      {
+        PassiveBox* b =
+          new PassiveBox(odeHandle,
+                         osgHandle.changeColor(Color(1.0f,0.2f,0.2f,0.5f)), osg::Vec3(1.5+i*0.01,1.5+i*0.01,1.5+i*0.01),40.0);
+        b->setTexture("Images/light_chess.rgb");
+        b->setPosition(Pos(i*4-5, -5+j*4, 1.0));
+        global.obstacles.push_back(b);
+      }
+    }
 
 
 
